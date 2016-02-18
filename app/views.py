@@ -42,7 +42,9 @@ def media_file(filename):
 @app.route('/jag')
 def jag():
     allJobsList = []
+    newJobsList = []
     hostList = []
+    allStatuses = {'pass': 'blue', 'failed': 'red', 'running': '_anime', 'disabled': 'disabled'}
 
     if request.args.get('master') is not None:
         hostList.append(request.args.get('master'))
@@ -57,10 +59,18 @@ def jag():
                 jobs['origin'] = ip
                 allJobsList.append(jobs)
 
+    if request.args.get('status') is not None:
+        status = request.args.get('status')
+        for job in allJobsList:
+            if allStatuses[status] in job['color']:
+                newJobsList.append(job)
+        allJobsList = newJobsList
+
     print 'Total number of jobs: %s' % len(allJobsList)
 
     return render_template('jag.html',
                            title='Jenkins',
                            current_host=request.args.get('master'),
                            hosts=app.config['JENKINS_URLS'],
-                           items=allJobsList)
+                           items=allJobsList,
+                           statuses=allStatuses)

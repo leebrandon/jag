@@ -27,12 +27,21 @@ $(document).ready(function () {
 
     <div class="panel panel-default">
       <div class="panel-heading">Filter by host</div>
-      <div class="pabel-body">
+      <div class="panel-body">
         <a class="btn {% if current_host == None %}btn-primary{% else %}btn-default{% endif %}" href="jag" role="button">All Jenkins Masters</a>
         {% for host in hosts %}
           <a class="btn btn-default {% if host == current_host %}btn-success{% else %}btn-default{% endif %}" href="?master={{ host }}" role="button">{{ host }}</a>
         {% endfor %}
       </div>
+    </div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">Filter by Status</div>
+        <div class="panel-body">
+          {% for status in statuses %}
+            <a class="btn btn-default" href="?status={{ status }}">{{ status }}</a>
+          {% endfor %}
+        </div>
     </div>
 
     <div class="input-group"> <span class="input-group-addon">Filter by Job Names</span>
@@ -57,27 +66,32 @@ $(document).ready(function () {
 
         {% if item.color == "blue" %}
             <td bgcolor="green" style="width:100px">
+              <a href="{{ item.url}}lastBuild/console">
               <button type="button" class="btn btn-default btn-sm center-block">
                 <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
               </button>
             </td>
-          {% elif item.color == "blue_anime" %}
-            <td bgcolor="blue">
+          {% elif item.color.endswith("_anime") %}
+            <td bgcolor="yellow" style="width:100px">
+              <a href="{{ item.url}}lastBuild/console">
               <button type="button" class="btn btn-default btn-sm center-block">
-                <span class="glyphicon glyphicon-sunglasses" aria-hidden="true"></span>
+                <span class="glyphicon glyphicon-play" aria-hidden="true"></span>
               </button>
             </td>
           {% elif item.color == "red" %}
-            <td bgcolor="red">
+            <td bgcolor="red" style="width:100px">
+              <a href="{{ item.url}}lastBuild/console">
               <button type="button" class="btn btn-default btn-sm center-block">
                 <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
               </button>
             </td>
           {% else %}
-            <td bgcolor="grey">
+            <td bgcolor="grey" style="width:100px">
+            <a href="{{ item.url}}lastBuild/console">
               <button type="button" class="btn btn-default btn-sm center-block">
                 <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
               </button>
+            </a>
             </td>
         {% endif %}
       </tr>
