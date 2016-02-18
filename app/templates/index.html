@@ -1,0 +1,12 @@
+{% extends "bootstrap/base.html" %}
+{% block content %}
+<html>
+  <head>
+    <title>{{ title }} - Jinja Home Page Test</title>
+  </head>
+  <body>
+      <h1>Hello, {{ user.nickname }}!</h1>
+      {% include "images.html" %}
+  </body>
+</html>
+{% endblock %}

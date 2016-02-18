@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+  <div>
+  <a href="{{ item }}">
+    <img class="c2" src="{{ '{0}.jpg'.format(item)|thumbnail('200x200') }}" alt="" />
+  </a>
+  <h1>{{ id }}</h1>
+  </div>
+{% endblock %}
+<p>hello there</p>

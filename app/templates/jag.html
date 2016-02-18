@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% block content %}
+<script>
+$(document).ready(function () {
+
+    (function ($) {
+
+        $('#filter').keyup(function () {
+
+            var rex = new RegExp($(this).val(), 'i');
+            $('.searchable tr').hide();
+            $('.searchable tr').filter(function () {
+                return rex.test($(this).text());
+            }).show();
+
+        })
+
+    }(jQuery));
+
+});
+</script>
+
+
+  <div style="margin-left:10px;margin-right:10px">
+    <p>Jag</p>
+    <div style="height:30px"></div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">Filter by host</div>
+      <div class="pabel-body">
+        <a class="btn {% if current_host == None %}btn-primary{% else %}btn-default{% endif %}" href="jag" role="button">All Jenkins Masters</a>
+        {% for host in hosts %}
+          <a class="btn btn-default {% if host == current_host %}btn-success{% else %}btn-default{% endif %}" href="?master={{ host }}" role="button">{{ host }}</a>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="input-group"> <span class="input-group-addon">Filter by Job Names</span>
+      <input id="filter" type="text" class="form-control" placeholder="Type here...">
+    </div>
+    <div class="table-responsive">
+    <table class="table table-striped table-hover table-condensed table-bordered">
+    <td><h2>Job Name</h2></td>
+    <td class="text-center" style="width:100px"><h2>Origin</h2></td>
+    <td><h2>Status</h2></td>
+    <tbody class="searchable">
+    {% for item in items %}
+      <tr>
+
+
+        <td><a href="{{ item.url }}">{{ item.name }}</a></td>
+        <td><a href="http://{{ item.origin }}">
+          <button type="button" class="btn btn-default btn-sm center-block">
+          <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+          </button></a>
+        </td>
+
+        {% if item.color == "blue" %}
+            <td bgcolor="green" style="width:100px">
+              <button type="button" class="btn btn-default btn-sm center-block">
+                <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+              </button>
+            </td>
+          {% elif item.color == "blue_anime" %}
+            <td bgcolor="blue">
+              <button type="button" class="btn btn-default btn-sm center-block">
+                <span class="glyphicon glyphicon-sunglasses" aria-hidden="true"></span>
+              </button>
+            </td>
+          {% elif item.color == "red" %}
+            <td bgcolor="red">
+              <button type="button" class="btn btn-default btn-sm center-block">
+                <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
+              </button>
+            </td>
+          {% else %}
+            <td bgcolor="grey">
+              <button type="button" class="btn btn-default btn-sm center-block">
+                <span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span>
+              </button>
+            </td>
+        {% endif %}
+      </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+    </div>
+  </div>
+{% endblock %}
