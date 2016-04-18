@@ -52,7 +52,11 @@ def jag():
         hostList = app.config['JENKINS_URLS']
 
     for ip in hostList:
-        response = requests.get('http://%s/api/json' % ip)
+	try:
+        	response = requests.get('http://%s/api/json' % ip)
+	except:
+		print 'Failed to get jobs list from %s' % ip
+
         if(response.status_code == 200):
             jsonResponse = json.loads(response.text)
             for jobs in jsonResponse['jobs']:

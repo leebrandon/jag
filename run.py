@@ -1,3 +1,3 @@
 #!venv/bin/python
 from app import app
-app.run(debug=True,port=8081)
+app.run(debug=True,port=8000)
