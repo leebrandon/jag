@@ -53,7 +53,8 @@ def jag():
 
     for ip in hostList:
 	try:
-        	response = requests.get('http://%s/api/json' % ip)
+		print 'Attempting to talk to %s' % ip
+        	response = requests.get('http://%s/api/json' % ip, timeout=0.5)
 	except:
 		print 'Failed to get jobs list from %s' % ip
 
