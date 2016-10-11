@@ -57,6 +57,7 @@ def jag():
         	response = requests.get('http://%s/api/json' % ip, timeout=0.5)
 	except:
 		print 'Failed to get jobs list from %s' % ip
+                continue
 
         if(response.status_code == 200):
             jsonResponse = json.loads(response.text)
