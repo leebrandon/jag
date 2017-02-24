@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+<div style="margin-left:10px;margin-right:10px">
+  <div style="height:70px"></div>
+  <div class="panel panel-default">
+    <div class="panel panel-heading">Input</div>
+    <div class="panel panel-body">
+    <form action="/buildFinder" method="post" name="login">
+        <p>
+            Please enter the package name:<br>
+            {{ form.packageFileName() }}<br>
+        </p>
+        <p><input type="submit" value="Search"></p>
+    </form>
+
+  </div>
+</div>
+</div>
+
+<div class="panel panel-default" style="margin-left:10px;margin-right:10px">
+<div class="panel panel-heading" >Builds Available</div>
+<div class="panel panel-body">
+  <div style="margin-left:10px;width:80px">
+    <ul class="nav nav-pills nav-stacked">
+      {% for item in buildList %}
+        <li role="presentation" class="text-center"><a href="#">{{ item }}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+</div>
+
+{% endblock %}

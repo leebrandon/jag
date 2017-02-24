@@ -2,21 +2,15 @@
 {% block content %}
 <script>
 $(document).ready(function () {
-
     (function ($) {
-
         $('#filter').keyup(function () {
-
             var rex = new RegExp($(this).val(), 'i');
             $('.searchable tr').hide();
             $('.searchable tr').filter(function () {
                 return rex.test($(this).text());
             }).show();
-
         })
-
     }(jQuery));
-
 });
 </script>
 
@@ -34,7 +28,7 @@ $(document).ready(function () {
           <div class="btn-group" role="group">
             <a class="btn btn-default {% if host == current_host %}btn-success{% else %}btn-default{% endif %}" href="?master={{ host }}" role="button">{{ host }}</a>
             <button type="button" class="btn btn-default">
-              <a href="http://{{ host }}">
+              <a href="http://{{ host }}" target="_blank">
                 <span class="glyphicon glyphicon-home"></span>
               </a>
             </button>
