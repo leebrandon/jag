@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+{% block content %}
+<script>
+$(document).ready(function () {
+
+	$('.star').on('click', function () {
+      $(this).toggleClass('star-checked');
+    });
+
+    $('.ckbox label').on('click', function () {
+      $(this).parents('tr').toggleClass('selected');
+    });
+
+    $('.btn-filter').on('click', function () {
+      var $target = $(this).data('target');
+      if ($target != 'all') {
+        $('.table tr').css('display', 'none');
+        $('.table tr[data-status="' + $target + '"]').fadeIn('slow');
+      } else {
+        $('.table tr').css('display', 'none').fadeIn('slow');
+      }
+    });
+
+ });
+</script>
+<!-- <div style="margin-left:10px;margin-right:10px">
+  <div style="height:70px"></div>
+  <div class="panel panel-default">
+    <div class="panel panel-heading">Running jobs</div>
+    <div class="panel panel-body">
+      <div class="table-responsive">
+      <table class="table table-striped table-hover table-condensed table-bordered">
+
+      <tbody class="searchable">
+      {% for item in list %}
+        <tr>
+          <td>{{ item }}<td>
+        </tr>
+      {% endfor %}
+    </tbody>
+
+  </div>
+</div> -->
+
+<div style="height:70px"></div>
+<div>
+  <div class="container">
+	<div class="row">
+
+		<section class="content">
+			<h1>Artifactory Task Filters</h1>
+			<div class="col-md-8 col-md-offset-0">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<div class="pull-right">
+							<div class="btn-group">
+								<button type="button" class="btn btn-success btn-filter" data-target="running">Running</button>
+								<button type="button" class="btn btn-warning btn-filter" data-target="scheduled">Scheduled</button>
+								<button type="button" class="btn btn-danger btn-filter" data-target="stopped">Stopped</button>
+								<button type="button" class="btn btn-default btn-filter" data-target="all">All</button>
+							</div>
+						</div>
+						<div class="table-container">
+							<table class="table table-filter">
+								<tbody>
+                  {% for item in dict %}
+									<tr data-status="{{ item.state }}">
+										<!-- <td>
+											<div class="ckbox">
+												<input type="checkbox" id="checkbox1">
+												<label for="checkbox1"></label>
+											</div>
+										</td> -->
+										<!-- <td>
+											<a href="javascript:;" class="star">
+												<i class="glyphicon glyphicon-star"></i>
+											</a>
+										</td> -->
+										<td>
+											<div class="media">
+												<a href="#" class="pull-left">
+													<!-- <img src="https://s3.amazonaws.com/uifaces/faces/twitter/fffabs/128.jpg" class="media-photo"> -->
+                          <!-- <img src="https://cdn1.iconfinder.com/data/icons/business-outline-icon-set/128/Icons_1-07-128.png" class="media-photo"> -->
+                          <i class="center-block glyphicon glyphicon-play"></i>
+												</a>
+												<div class="media-body">
+													<!-- <span class="media-meta pull-right">Febrero 13, 2016</span> -->
+													<h4 class="title">
+														{{ item.name }}
+														<span class="pull-right label {% if item.state == "running" %}label-success
+                                                          {% elif item.state == "scheduled"%} label-warning
+                                                          {% elif item.state == "stopped" %} label-danger
+                                                          {% endif%} {{ item.state }}">{{item.state}}</span>
+													</h4>
+													<p class="summary">{{ item.id }}</p>
+												</div>
+                          <span style=" {% if item.type == "LocalReplicationJob" %}background-color:blue
+                                        {% elif item.type == "BackupJob" %}background-color:red
+                                        {% elif item.type == "StatsDelegatingServiceFlushJob" %} background-color:purple
+                                        {% else %} background-color:black
+                                        {% endif %}" class="pull-right badge">{{item.type}}</span>
+                        <div>
+                        </div>
+											</div>
+										</td>
+									</tr>
+                  {% endfor %}
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+	</div>
+</div>
+</div>
+
+{% endblock %}
