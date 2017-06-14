@@ -2,3 +2,4 @@
 venv
 *.tar
 *.cfg
+*.log
